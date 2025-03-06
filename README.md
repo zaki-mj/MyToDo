@@ -1,4 +1,4 @@
-# To-Do List App
+# MyToDo
 
 A simple and elegant Flutter to-do list app with local storage. This app allows users to add, complete, and delete tasks, with all data persisted locally using `shared_preferences`.
 
@@ -18,10 +18,11 @@ A simple and elegant Flutter to-do list app with local storage. This app allows 
 - **Dark Theme**: A sleek dark theme with teal accents for a modern look.
 
 ## Screenshots
-![Home Screen](screenshots/home.png)  
-*manage your to-do list.*
-![Adding Tasks](screenshots/addition.png)  
-*adding tasks to the list.*
+<img src="screenshots/home.png" alt="Home Screen" width="250">
+<p><em>Add tasks and manage your to-do list.</em></p>
+
+<img src="screenshots/addition.png" alt="Adding Tasks" width="250">
+<p><em>Adding tasks to the list.</em></p>
 
 ## Installation
 Follow these steps to run the app locally:
