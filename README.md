@@ -8,7 +8,6 @@ A simple and elegant Flutter to-do list app with local storage. This app allows 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Dependencies](#dependencies)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Features
@@ -27,11 +26,11 @@ Follow these steps to run the app locally:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+   git clone https://github.com/zaki-mj/MyToDo.git
    ```
 2. **Navigate to the project directory**:
    ```bash
-   cd your-repo-name
+   cd MyToDo
    ```
 3. **Install dependencies**:
    ```bash
@@ -52,27 +51,9 @@ This app uses the following packages:
 - [`shared_preferences`](https://pub.dev/packages/shared_preferences): For local storage.
 - [`flutter`](https://flutter.dev/): The framework used to build the app.
 
-## Contributing
-Contributions are welcome! If you'd like to contribute, please follow these steps:
-
-1. **Fork the repository**.
-2. **Create a new branch**:
-   ```bash
-   git checkout -b feature/YourFeatureName
-   ```
-3. **Commit your changes**:
-   ```bash
-   git commit -m "Add some feature"
-   ```
-4. **Push to the branch**:
-   ```bash
-   git push origin feature/YourFeatureName
-   ```
-5. **Open a pull request**.
-
 ## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project was made for the purpose of learning Flutter and is free to use by anyone.
 
 ---
 
-Made with ❤️ by **Your Name**
+Made with ❤️ by **Zaki MJ**
