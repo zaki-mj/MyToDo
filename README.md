@@ -19,7 +19,9 @@ A simple and elegant Flutter to-do list app with local storage. This app allows 
 
 ## Screenshots
 ![Home Screen](screenshots/home.png)  
-*Add tasks and manage your to-do list.*
+*manage your to-do list.*
+![Adding Tasks](screenshots/addition.png)  
+*adding tasks to the list.*
 
 ## Installation
 Follow these steps to run the app locally:
@@ -56,4 +58,4 @@ This project was made for the purpose of learning Flutter and is free to use by 
 
 ---
 
-Made with ❤️ by **Zaki MJ**
+Made with ❤️ by **Zakaria**
