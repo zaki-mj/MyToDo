@@ -36,6 +36,13 @@ class _HomePageState extends State<HomePage> {
     StorageManager.saveTasks(_tasks); // Save tasks to local storage
   }
 
+  void _editTask(int index, String newName) {
+    setState(() {
+      _tasks[index].name = newName;
+    });
+    StorageManager.saveTasks(_tasks); // Save tasks to local storage
+  }
+
   // Remove a task
   void _removeTask(int index) {
     setState(() {
@@ -69,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                       color: Colors
-                          .teal), // Set underline color to teal when focused
+                          .teal), 
                 ),
                 hintText: 'Enter task name',
                 focusColor: Colors.teal),
@@ -93,11 +100,48 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  _showEditTaskDialog(int index) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        String newTaskName = '';
+        return AlertDialog(
+          title: Text('Edit Task'),
+          content: TextField(
+            cursorColor: Colors.teal,
+            onChanged: (value) {
+              newTaskName = value;
+            },
+            decoration: InputDecoration(
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Colors
+                          .teal), // Set underline color to teal when focused
+                ),
+                hintText: 'Enter new task name',
+                focusColor: Colors.teal),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (newTaskName.isNotEmpty) {
+                  _editTask(index, newTaskName);
+                  Navigator.pop(context);
+                }
+              },
+              child: Text(
+                'Edit',
+                style: TextStyle(color: Colors.teal),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Reverse the list of tasks to display newer tasks at the top
-    List<Task> reversedTasks = List.from(_tasks.reversed);
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
@@ -107,27 +151,26 @@ class _HomePageState extends State<HomePage> {
         shadowColor: Colors.black,
       ),
       body: ListView.builder(
-        itemCount: reversedTasks.length,
+        itemCount: _tasks.length,
         itemBuilder: (context, index) {
           return TaskTile(
-            task: reversedTasks[index],
+            task: _tasks[index],
             onChanged: (value) {
-              // Find the original index of the task in the _tasks list
-              int originalIndex = _tasks.indexOf(reversedTasks[index]);
-              _toggleTaskCompletion(originalIndex);
+              _toggleTaskCompletion(index);
             },
             onDelete: () {
-              // Find the original index of the task in the _tasks list
-              int originalIndex = _tasks.indexOf(reversedTasks[index]);
-              _removeTask(originalIndex);
+              _removeTask(index);
+            },
+            onHold: () {
+              _showEditTaskDialog(index);
             },
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showAddTaskDialog,
-        child: Icon(Icons.add),
         backgroundColor: Colors.teal,
+        child: Icon(Icons.add),
       ),
     );
   }

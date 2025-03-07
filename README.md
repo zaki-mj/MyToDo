@@ -15,7 +15,6 @@ A simple and elegant Flutter to-do list app with local storage. This app allows 
 - **Complete Tasks**: Mark tasks as completed with a checkbox.
 - **Delete Tasks**: Remove tasks you no longer need.
 - **Local Storage**: Tasks are saved locally using `shared_preferences`, so they persist even after the app is closed.
-- **Dark Theme**: A sleek dark theme with teal accents for a modern look.
 
 ## Screenshots
 <img src="screenshots/home.png" alt="Home Screen" width="250">
