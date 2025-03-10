@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_to_do/components/drawer.dart';
+import 'package:my_to_do/pages/about.dart';
+import 'package:my_to_do/pages/diary.dart';
+import 'package:my_to_do/pages/diaryEdit.dart';
 import 'package:my_to_do/pages/toDo.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,11 +16,23 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> get navigationBarBody => [
         ToDo(key: _toDoKey),
-        const Icon(Icons.sticky_note_2),
+        DiaryPage(),
       ];
 
   void _showAddTaskDialog() {
     _toDoKey.currentState?.showAddTaskDialog();
+  }
+
+  void additionController(int index) {
+    if (index == 0) {
+      _showAddTaskDialog();
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EditDiaryPage(),
+          ));
+    }
   }
 
   @override
@@ -28,13 +43,14 @@ class _HomePageState extends State<HomePage> {
         title: const Text('My To Do'),
         centerTitle: true,
       ),
-      drawer: myDrawer(),
+      drawer: MyDrawer(), // Pass the callback
       body: navigationBarBody[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        fixedColor: Colors.teal,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.check_box), label: "ToDo"),
+          BottomNavigationBarItem(icon: Icon(Icons.check_box), label: "Tasks"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.sticky_note_2_rounded), label: "Notes")
+              icon: Icon(Icons.sticky_note_2_rounded), label: "Diary")
         ],
         currentIndex: _currentIndex,
         onTap: (int newIndex) {
@@ -45,7 +61,9 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: _showAddTaskDialog,
+        onPressed: () {
+          additionController(_currentIndex);
+        },
         backgroundColor: Colors.teal,
         child: const Icon(Icons.add),
       ),
