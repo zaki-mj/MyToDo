@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'task_tile.dart';
+import '../components/task_tile.dart';
 
 class StorageManager {
   // Key for storing tasks in SharedPreferences
