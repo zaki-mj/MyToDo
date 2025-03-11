@@ -30,10 +30,6 @@ class DiaryTile extends StatelessWidget {
           title: Text(
             diary.title,
           ),
-          leading: IconButton(
-            icon: Icon(Icons.delete, color: Colors.grey[900]),
-            onPressed: onDelete,
-          ),
         ),
       ),
     );

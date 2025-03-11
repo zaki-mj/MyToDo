@@ -37,17 +37,17 @@ class _MyDrawerState extends State<MyDrawer> {
             ),
             addVerticalSpace(screenHeight * .02),
             Draweritem(
-              label: "ToDo Archive",
+              label: "ToDo Archive | soon",
               icon: Icon(Icons.archive_outlined),
               onTap: () {}, // Leave the other onTap actions empty for now
             ),
             Draweritem(
-              label: "Mood analysis",
+              label: "Mood analysis | soon",
               icon: Icon(Icons.data_saver_off),
               onTap: () {}, // Leave empty for now
             ),
             Draweritem(
-              label: "Import/Export",
+              label: "Import/Export | soon",
               icon: Icon(Icons.import_export_rounded),
               onTap: () {}, // Leave empty for now
             ),

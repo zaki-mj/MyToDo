@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_to_do/components/diaryTile.dart';
 import 'package:my_to_do/services/DiariesStorageManager.dart';
-import 'diary.dart';
 import 'package:my_to_do/global.dart';
 
 class EditDiaryPage extends StatefulWidget {
@@ -12,24 +11,6 @@ class EditDiaryPage extends StatefulWidget {
 }
 
 class _EditDiaryPageState extends State<EditDiaryPage> {
-  void initState() {
-    super.initState();
-    _loadDiaries();
-  }
-
-  void _loadDiaries() async {
-    List<Diary> diaries = await StorageManager.loadDiaries();
-    setState(() {
-      myDiaries = diaries;
-    });
-  }
-
-  void _addDiary(String diaryName, String diaryBody) {
-    setState(() {
-      myDiaries.insert(0, Diary(title: diaryName, body: diaryBody));
-    });
-  }
-
   final TextEditingController titleController = TextEditingController();
   final TextEditingController diaryController = TextEditingController();
   final FocusNode titleFocus = FocusNode();
@@ -42,6 +23,27 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
     titleFocus.dispose();
     bodyFocus.dispose();
     super.dispose();
+  }
+
+  void _saveDiary() async {
+    final title = titleController.text.trim();
+    final body = diaryController.text.trim();
+
+    if (title.isNotEmpty && body.isNotEmpty) {
+      setState(() {
+        myDiaries.insert(0, Diary(title: title, body: body));
+      });
+
+      await StorageManager.saveDiaries(myDiaries); // Save updated list
+
+      if (mounted) {
+        Navigator.pop(context, true); // Return true to indicate success
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter a title and content')),
+      );
+    }
   }
 
   @override
@@ -57,27 +59,19 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
-            // Title Input
             TextField(
               controller: titleController,
               focusNode: titleFocus,
               cursorColor: Colors.teal,
               textInputAction: TextInputAction.next,
-              onSubmitted: (_) =>
-                  FocusScope.of(context).requestFocus(bodyFocus),
+              onSubmitted: (_) => FocusScope.of(context).requestFocus(bodyFocus),
               decoration: const InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.teal),
-                ),
                 hintText: 'Enter diary title',
                 hintStyle: TextStyle(color: Colors.grey),
               ),
               style: const TextStyle(fontSize: 18),
             ),
-
             const SizedBox(height: 15),
-
-            // Diary Text Input
             Expanded(
               child: TextField(
                 controller: diaryController,
@@ -89,13 +83,8 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.teal.withOpacity(0.1),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide.none,
-                  ),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                   hintText: 'Write your diary here...',
-                  hintStyle: TextStyle(color: Colors.grey[600]),
-                  contentPadding: EdgeInsets.all(15),
                 ),
                 style: const TextStyle(fontSize: 16),
               ),
@@ -103,23 +92,8 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
           ],
         ),
       ),
-
-      // Floating Save Button
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          final title = titleController.text;
-          final body = diaryController.text;
-          if (title.isNotEmpty) {
-            _addDiary(title, body);
-            print(myDiaries.length.toString());
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Please enter a title and content')),
-            );
-          }
-          ;
-          Navigator.pop(context);
-        },
+        onPressed: _saveDiary,
         backgroundColor: Colors.teal,
         child: const Icon(Icons.save, color: Colors.white),
       ),

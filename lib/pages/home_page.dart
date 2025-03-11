@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_to_do/components/drawer.dart';
-import 'package:my_to_do/pages/about.dart';
 import 'package:my_to_do/pages/diary.dart';
 import 'package:my_to_do/pages/diaryEdit.dart';
 import 'package:my_to_do/pages/toDo.dart';
@@ -13,25 +12,29 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   final GlobalKey<ToDoState> _toDoKey = GlobalKey<ToDoState>();
+  final GlobalKey<DiaryPageState> _diaryKey = GlobalKey<DiaryPageState>(); // Add this
 
   List<Widget> get navigationBarBody => [
         ToDo(key: _toDoKey),
-        DiaryPage(),
+        DiaryPage(key: _diaryKey), // Use the key
       ];
 
   void _showAddTaskDialog() {
     _toDoKey.currentState?.showAddTaskDialog();
   }
 
-  void additionController(int index) {
+  void additionController(int index) async {
     if (index == 0) {
       _showAddTaskDialog();
     } else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => EditDiaryPage(),
-          ));
+      final result = await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => EditDiaryPage()),
+      );
+
+      if (result == true) {
+        _diaryKey.currentState?.refreshDiaries(); // Refresh DiaryPage
+      }
     }
   }
 
