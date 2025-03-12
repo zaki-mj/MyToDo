@@ -74,8 +74,35 @@ class DiaryPageState extends State<DiaryPage> {
                 itemBuilder: (context, index) {
                   return DiaryTile(
                     diary: myDiaries[index],
-                    onDelete: () => _deleteDiary(index),
-                    onHold: () {},
+                    onTap: () => _deleteDiary(index),
+                    onHold: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text(
+                                'Are you sure you want to delete the diary diary?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  _deleteDiary(index);
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Yes',
+                                    style: TextStyle(color: Colors.teal)),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('No',
+                                    style: TextStyle(color: Colors.teal)),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
                   );
                 },
               ),

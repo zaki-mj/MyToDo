@@ -88,6 +88,46 @@ class ToDoState extends State<ToDo> {
     );
   }
 
+  _showEditTaskDialog(int index) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        String newTaskName = '';
+        return AlertDialog(
+          title: Text('Edit Task'),
+          content: TextField(
+            cursorColor: Colors.teal,
+            onChanged: (value) {
+              newTaskName = value;
+            },
+            decoration: InputDecoration(
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Colors
+                          .teal), // Set underline color to teal when focused
+                ),
+                hintText: 'Enter new task name',
+                focusColor: Colors.teal),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (newTaskName.isNotEmpty) {
+                  _editTask(index, newTaskName);
+                  Navigator.pop(context);
+                }
+              },
+              child: Text(
+                'Edit',
+                style: TextStyle(color: Colors.teal),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -97,7 +137,7 @@ class ToDoState extends State<ToDo> {
           task: _tasks[index],
           onChanged: (value) => _toggleTaskCompletion(index),
           onDelete: () => _removeTask(index),
-          onHold: () => _editTask(index, _tasks[index].name),
+          onHold: () => _showEditTaskDialog(index),
         );
       },
     );

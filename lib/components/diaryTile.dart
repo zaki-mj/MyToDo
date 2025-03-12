@@ -9,18 +9,19 @@ class Diary {
 
 class DiaryTile extends StatelessWidget {
   final Diary diary;
-  final Function() onDelete;
+  final Function() onTap;
   final Function() onHold;
 
   DiaryTile({
     required this.diary,
-    required this.onDelete,
+    required this.onTap,
     required this.onHold,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onTap,      
       onLongPress: onHold,
       child: Container(
         margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
