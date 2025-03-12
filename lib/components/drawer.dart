@@ -52,6 +52,11 @@ class _MyDrawerState extends State<MyDrawer> {
               onTap: () {}, // Leave empty for now
             ),
             Draweritem(
+              label: "Recycle bin | soon",
+              icon: Icon(Icons.import_export_rounded),
+              onTap: () {}, // Leave empty for now
+            ),
+            Draweritem(
               label: "About",
               icon: Icon(Icons.info_outline),
               onTap: () {

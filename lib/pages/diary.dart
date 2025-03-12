@@ -45,10 +45,18 @@ class DiaryPageState extends State<DiaryPage> {
     await StorageManager.saveDiaries(myDiaries);
   }
 
-  Future<void> _navigateToAddDiary() async {
+  Future<void> _navigateToAddDiary(int? index) async {
+    final diary = index != null ? myDiaries[index] : null;
+
     final result = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const EditDiaryPage()),
+      MaterialPageRoute(
+        builder: (context) => EditDiaryPage(
+          title: diary?.title ?? "",
+          body: diary?.body ?? "",
+          index: index, // Pass index for editing
+        ),
+      ),
     );
 
     if (result == true) {
@@ -74,7 +82,7 @@ class DiaryPageState extends State<DiaryPage> {
                 itemBuilder: (context, index) {
                   return DiaryTile(
                     diary: myDiaries[index],
-                    onTap: () => _deleteDiary(index),
+                    onTap: () => _navigateToAddDiary(index),
                     onHold: () {
                       showDialog(
                         context: context,

@@ -4,24 +4,31 @@ import 'package:my_to_do/services/DiariesStorageManager.dart';
 import 'package:my_to_do/global.dart';
 
 class EditDiaryPage extends StatefulWidget {
-  const EditDiaryPage({super.key});
+  final String title;
+  final String body;
+  final int? index; // Null if creating a new diary
+
+  const EditDiaryPage({super.key, this.title = "", this.body = "", this.index});
 
   @override
   State<EditDiaryPage> createState() => _EditDiaryPageState();
 }
 
 class _EditDiaryPageState extends State<EditDiaryPage> {
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController diaryController = TextEditingController();
-  final FocusNode titleFocus = FocusNode();
-  final FocusNode bodyFocus = FocusNode();
+  late TextEditingController titleController;
+  late TextEditingController diaryController;
+
+  @override
+  void initState() {
+    super.initState();
+    titleController = TextEditingController(text: widget.title);
+    diaryController = TextEditingController(text: widget.body);
+  }
 
   @override
   void dispose() {
     titleController.dispose();
     diaryController.dispose();
-    titleFocus.dispose();
-    bodyFocus.dispose();
     super.dispose();
   }
 
@@ -29,20 +36,25 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
     final title = titleController.text.trim();
     final body = diaryController.text.trim();
 
-    if (title.isNotEmpty && body.isNotEmpty) {
-      setState(() {
-        myDiaries.insert(0, Diary(title: title, body: body));
-      });
-
-      await StorageManager.saveDiaries(myDiaries); // Save updated list
-
-      if (mounted) {
-        Navigator.pop(context, true); // Return true to indicate success
-      }
-    } else {
+    if (title.isEmpty || body.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please enter a title and content')),
       );
+      return;
+    }
+
+    if (widget.index != null) {
+      // Editing an existing diary
+      myDiaries[widget.index!] = Diary(title: title, body: body);
+    } else {
+      // Adding a new diary
+      myDiaries.insert(0, Diary(title: title, body: body));
+    }
+
+    await StorageManager.saveDiaries(myDiaries); // Save updated list
+
+    if (mounted) {
+      Navigator.pop(context, true); // Return true to indicate success
     }
   }
 
@@ -51,7 +63,7 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
-        title: const Text('Diary Editor'),
+        title: Text(widget.index == null ? 'New Diary' : 'Edit Diary'),
         centerTitle: true,
         elevation: 2,
       ),
@@ -61,10 +73,8 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
           children: [
             TextField(
               controller: titleController,
-              focusNode: titleFocus,
               cursorColor: Colors.teal,
               textInputAction: TextInputAction.next,
-              onSubmitted: (_) => FocusScope.of(context).requestFocus(bodyFocus),
               decoration: const InputDecoration(
                 hintText: 'Enter diary title',
                 hintStyle: TextStyle(color: Colors.grey),
@@ -75,7 +85,6 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
             Expanded(
               child: TextField(
                 controller: diaryController,
-                focusNode: bodyFocus,
                 cursorColor: Colors.teal,
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
