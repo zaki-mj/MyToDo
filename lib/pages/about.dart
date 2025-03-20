@@ -164,13 +164,6 @@ class About extends StatelessWidget {
                   ),
                 ),
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  PermissionStatus storageStatus =
-                      await Permission.manageExternalStorage.request();
-                },
-                child: Text("Request Storage Permission"),
-              )
             ],
           ),
         ),
