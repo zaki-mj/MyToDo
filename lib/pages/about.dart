@@ -1,22 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:my_to_do/components/misc.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class About extends StatelessWidget {
   const About({super.key});
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width; // Gives the width
+    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    final String githubUrl =
-        "https://github.com/zaki-mj/MyToDo"; // Replace with your GitHub link
+    final String githubUrl = "https://github.com/zaki-mj/MyToDo";
 
     Future<void> _launchURL(String url) async {
       final Uri uri = Uri.parse(url);
       if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
         throw Exception("Could not launch $url");
+      }
+    }
+
+    Future<void> requestStoragePermission() async {
+      PermissionStatus status = await Permission.storage.request();
+
+      if (status.isGranted) {
+        print("Storage permission granted");
+      } else if (status.isDenied) {
+        print("Storage permission denied");
+      } else if (status.isPermanentlyDenied) {
+        print("Storage permission permanently denied, open app settings");
+        openAppSettings();
       }
     }
 
@@ -43,7 +56,7 @@ class About extends StatelessWidget {
               ),
               addVerticalSpace(screenHeight * .01),
               Text(
-                'MEE is a free and open source\nDiary and ToDo manager made in\nflutter for educational purpose',
+                'MEE is a free and open source\nDiary and ToDo manager made in\nflutter with local storage functionality',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -67,8 +80,7 @@ class About extends StatelessWidget {
                       ),
                       Text(
                         "10-03-2025",
-                        style: TextStyle(
-                            color: const Color.fromARGB(255, 255, 255, 255)),
+                        style: TextStyle(color: Colors.white),
                       ),
                       addHorizontalSpace(screenWidth * .3),
                     ],
@@ -99,7 +111,6 @@ class About extends StatelessWidget {
                             radius: screenHeight * .03,
                             backgroundImage:
                                 AssetImage("assets/images/pfp.png"),
-                            // child: Image.asset("assets/images/pfp.png"),
                           ),
                           Text(
                             "Zakaria M.",
@@ -153,6 +164,13 @@ class About extends StatelessWidget {
                   ),
                 ),
               ),
+              ElevatedButton(
+                onPressed: () async {
+                  PermissionStatus storageStatus =
+                      await Permission.manageExternalStorage.request();
+                },
+                child: Text("Request Storage Permission"),
+              )
             ],
           ),
         ),

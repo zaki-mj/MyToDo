@@ -10,6 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
   hive_flutter: ^1.1.0
+  open_file: ^3.5.10
+  path_provider: ^2.1.5
+  pdf: ^3.11.3
+  permission_handler: ^11.4.0
   shared_preferences: ^2.5.2
   url_launcher: ^6.3.1
 

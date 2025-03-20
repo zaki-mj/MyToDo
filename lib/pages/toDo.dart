@@ -130,16 +130,18 @@ class ToDoState extends State<ToDo> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: _tasks.length,
-      itemBuilder: (context, index) {
-        return TaskTile(
-          task: _tasks[index],
-          onChanged: (value) => _toggleTaskCompletion(index),
-          onDelete: () => _removeTask(index),
-          onHold: () => _showEditTaskDialog(index),
-        );
-      },
-    );
+    return _tasks.isEmpty
+        ? const Center(child: Text("No tasks available"))
+        : ListView.builder(
+            itemCount: _tasks.length,
+            itemBuilder: (context, index) {
+              return TaskTile(
+                task: _tasks[index],
+                onChanged: (value) => _toggleTaskCompletion(index),
+                onDelete: () => _removeTask(index),
+                onHold: () => _showEditTaskDialog(index),
+              );
+            },
+          );
   }
 }

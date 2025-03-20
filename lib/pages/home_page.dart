@@ -12,7 +12,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   final GlobalKey<ToDoState> _toDoKey = GlobalKey<ToDoState>();
-  final GlobalKey<DiaryPageState> _diaryKey = GlobalKey<DiaryPageState>(); // Add this
+  final GlobalKey<DiaryPageState> _diaryKey =
+      GlobalKey<DiaryPageState>(); // Add this
 
   List<Widget> get navigationBarBody => [
         ToDo(key: _toDoKey),
@@ -43,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
-        title: const Text('My To Do'),
+        title: const Text('Mee'),
         centerTitle: true,
       ),
       drawer: MyDrawer(), // Pass the callback

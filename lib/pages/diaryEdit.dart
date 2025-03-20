@@ -36,9 +36,9 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
     final title = titleController.text.trim();
     final body = diaryController.text.trim();
 
-    if (title.isEmpty || body.isEmpty) {
+    if (title.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter a title and content')),
+        const SnackBar(content: Text('Please enter a title')),
       );
       return;
     }
@@ -75,13 +75,20 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
               controller: titleController,
               cursorColor: Colors.teal,
               textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'Enter diary title',
-                hintStyle: TextStyle(color: Colors.grey),
+                hintStyle: const TextStyle(color: Colors.grey),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: const BorderSide(
+                      color: Color.fromARGB(255, 145, 145, 145), width: 2),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.teal, width: 2),
+                ),
               ),
               style: const TextStyle(fontSize: 18),
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 5),
             Expanded(
               child: TextField(
                 controller: diaryController,
@@ -90,11 +97,18 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
                 maxLines: null,
                 minLines: 5,
                 decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.teal.withOpacity(0.1),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                  hintText: 'Write your diary here...',
-                ),
+                    filled: true,
+                    fillColor: Colors.teal.withOpacity(0.1),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 145, 145, 145), width: 2),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide:
+                          const BorderSide(color: Colors.teal, width: 2),
+                    ),
+                    hintText: 'Write your diary here...',
+                    focusColor: Colors.teal),
                 style: const TextStyle(fontSize: 16),
               ),
             ),

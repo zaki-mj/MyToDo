@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_to_do/components/drawerItem.dart';
 import 'package:my_to_do/components/misc.dart';
 import 'package:my_to_do/pages/about.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
@@ -11,7 +12,69 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
+  final TextEditingController _nameController = TextEditingController();
+  String? userName;
   @override
+  void initState() {
+    super.initState();
+    _loadUserName();
+  }
+
+  Future<void> _loadUserName() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userName = prefs.getString('user_name');
+    });
+  }
+
+  Future<void> _editName(String name) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('user_name', name);
+    setState() {
+      userName = name; // Update UI immediately
+    }
+  }
+
+  _showEditTaskDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        String newName = '';
+        return AlertDialog(
+          title: Text('Edit name'),
+          content: TextField(
+            cursorColor: Colors.teal,
+            onChanged: (value) {
+              newName = value;
+            },
+            decoration: InputDecoration(
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Colors
+                          .teal), // Set underline color to teal when focused
+                ),
+                focusColor: Colors.teal),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (newName.isNotEmpty) {
+                  _editName(newName);
+                  _loadUserName();
+                  Navigator.pop(context);
+                }
+              },
+              child: Text(
+                'Edit',
+                style: TextStyle(color: Colors.teal),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -22,17 +85,28 @@ class _MyDrawerState extends State<MyDrawer> {
           children: [
             addVerticalSpace(screenHeight * .1),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                addHorizontalSpace(15),
                 CircleAvatar(
+                  //backgroundImage: AssetImage("assets/images/cupcake.png"),
                   backgroundColor: Colors.teal,
                   radius: screenHeight * .04,
+                  child: Icon(
+                    Icons.person,
+                    size: 50,
+                  ),
                 ),
-                Text(
-                  "Zakaria",
-                  style: TextStyle(fontSize: 20),
+                addHorizontalSpace(15),
+                Expanded(
+                  child: Text(
+                    "$userName",
+                    style: TextStyle(fontSize: 20),
+                  ),
                 ),
-                addHorizontalSpace(screenWidth * .3)
+                GestureDetector(
+                    onTap: _showEditTaskDialog, child: Icon(Icons.edit)),
+                addHorizontalSpace(screenWidth * .05),
               ],
             ),
             addVerticalSpace(screenHeight * .02),
@@ -53,7 +127,7 @@ class _MyDrawerState extends State<MyDrawer> {
             ),
             Draweritem(
               label: "Recycle bin | soon",
-              icon: Icon(Icons.import_export_rounded),
+              icon: Icon(Icons.delete),
               onTap: () {}, // Leave empty for now
             ),
             Draweritem(
@@ -67,7 +141,6 @@ class _MyDrawerState extends State<MyDrawer> {
                 );
               },
             ),
-            addVerticalSpace(screenHeight * .5)
           ],
         ),
       ),
