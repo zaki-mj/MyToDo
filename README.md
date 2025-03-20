@@ -1,6 +1,6 @@
 # MyToDo
 
-A simple and elegant Flutter to-do list app with local storage. This app allows users to add, edit, complete, and delete tasks, with all data persisted locally using `shared_preferences`.
+A simple and elegant Flutter to-do list personal diary app. Enjoy a sleek and elegant Flutter application that not only manages your daily tasks but also helps you keep a journal of your thoughts. Stay organized with local storage , with all data persisted locally using `shared_preferences`. and get ready for even more features coming soon.
 
 ## Table of Contents
 - [Features](#features)
@@ -8,25 +8,36 @@ A simple and elegant Flutter to-do list app with local storage. This app allows 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Dependencies](#dependencies)
+- [Upcoming Features](#upcoming-features)
 - [Releases](#releases)
 - [License](#license)
 
 ## Features
-- **Add Tasks**: Easily add new tasks with a simple form.
-- **Edit Tasks**: Modify existing tasks without deleting them.
-- **Complete Tasks**: Mark tasks as completed with a checkbox.
-- **Delete Tasks**: Remove tasks you no longer need.
-- **Local Storage**: Tasks are saved locally using `shared_preferences`, so they persist even after the app is closed.
+- **Username Customisation**: Personalize your experience by setting your own username.
+- **To-Do List Functionalities**:
+  - **Add Tasks**: Easily add new tasks with a simple form.
+  - **Edit Tasks**: Modify existing tasks without having to delete them.
+  - **Remove Tasks**: Delete tasks you no longer need.
+  - **Complete Tasks**: Mark tasks as completed using a checkbox.
+- **Diary Functionalities**:
+  - **Add Diary Entries**: Write and save your daily diary entries.
+  - **Edit Diary Entries**: Update your diary content whenever you want.
+  - **Remove Diary Entries**: Delete entries that are no longer relevant.
+- **Local Storage**: All your tasks and diary entries are saved locally using `shared_preferences`, ensuring your data persists even after closing the app.
+
 
 ## Screenshots
-<img src="screenshots/home.png" alt="Home Screen" width="250">
+<img src="screenshots/tasksPage.jpg" alt="Tasks Screen" width="250">
 <p><em>Add tasks and manage your to-do list.</em></p>
 
-<img src="screenshots/addition.png" alt="Adding Tasks" width="250">
-<p><em>Adding tasks to the list.</em></p>
+<img src="screenshots/diaryPage.jpg" alt="Diary screen" width="250">
+<p><em>View and manage your diaries.</em></p>
 
-<img src="screenshots/editFunctionality.gif" alt="Editing Tasks" width="250">
-<p><em>Editing an existing task.</em></p>
+<img src="screenshots/addingDiary.jpg" alt="Editing Diaries" width="250">
+<p><em>Easily edit your diaries.</em></p>
+
+<img src="screenshots/drawer.jpg" alt="Coming soon" width="250">
+<p><em>Features coming soon.</em></p>
 
 ## Installation
 Follow these steps to run the app locally:
@@ -49,10 +60,27 @@ Follow these steps to run the app locally:
    ```
 
 ## Usage
-- **Add a Task**: Tap the `+` button to open the add task dialog. Enter the task name and press "Add".
-- **Edit a Task**: Long press on a task to modify its content, then save the changes.
+### Setting Up Your Username
+- When launching the app for the first time, you will be prompted to set a username.  
+- You can later edit your username from the drawer menu.
+
+### Navigating Between Views
+- Use the bottom navigation bar to switch between the **Task view** and the **Diary view**.
+
+### Adding Tasks and Diary Entries
+- Tap the floating `+` button while on the desired page to add either a **task** or a **diary entry**.
+
+### Managing Tasks
+- **Edit a Task**: Long press on a task to modify its content.
 - **Complete a Task**: Tap the checkbox next to a task to mark it as completed.
-- **Delete a Task**: Swipe left on a task or tap the delete icon to remove it.
+- **Remove a Task**: tap on the delete icon to remove a task.
+
+### Managing Diary Entries
+- **Edit a Diary Entry**: Tap on a diary entry to modify its content.
+- **Remove a Diary Entry**: Long press on an entry to remove it.
+
+### Accessing the About Page
+- Open the **drawer menu** and tap **"About"** to learn more about the app.
 
 ## Dependencies
 This app uses the following packages:
@@ -62,8 +90,19 @@ This app uses the following packages:
 Check out the latest releases and download the APK:
 [GitHub Releases](https://github.com/zaki-mj/MyToDo/releases)
 
+## Upcoming Features
+
+I am actively working on exciting new features to enhance your experience:
+
+- **To-Do Archive**: Store completed tasks in an archive for future reference.  
+- **Mood Analysis**: Analyze your diary entries to track mood patterns over time.  
+- **Export to PDF**: Save and share your tasks and diary entries as PDF files.  
+- **Recycle Bin**: Restore accidentally deleted tasks or diary entries before they are permanently removed.  
+
+
 ## License
 This project was made for the purpose of learning Flutter and is free to use by anyone.
+Note: We will be rebranding to "Mee" soon, replacing the current name "MyToDo".
 
 ---
 
