@@ -3,6 +3,7 @@ import 'package:my_to_do/components/drawerItem.dart';
 import 'package:my_to_do/components/misc.dart';
 import 'package:my_to_do/pages/about.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:my_to_do/services/exportServices.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
@@ -110,6 +111,28 @@ class _MyDrawerState extends State<MyDrawer> {
               ],
             ),
             addVerticalSpace(screenHeight * .02),
+            GestureDetector(
+              child: Draweritem(
+                  label: "Export all diaries",
+                  icon: Icon(Icons.import_export_rounded),
+                  onTap: () => exportDiaries(context)),
+            ),
+            GestureDetector(
+              child: Draweritem(
+                label: "Storage permission",
+                icon: Icon(Icons.storage),
+                onTap: () async {
+                  bool granted = await requestFullStoragePermission();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(granted
+                          ? "Storage permission granted!"
+                          : "Storage permission not granted."),
+                    ),
+                  );
+                }, // Leave empty for now
+              ),
+            ),
             Draweritem(
               label: "ToDo Archive | soon",
               icon: Icon(Icons.archive_outlined),
@@ -118,11 +141,6 @@ class _MyDrawerState extends State<MyDrawer> {
             Draweritem(
               label: "Mood analysis | soon",
               icon: Icon(Icons.data_saver_off),
-              onTap: () {}, // Leave empty for now
-            ),
-            Draweritem(
-              label: "Import/Export | soon",
-              icon: Icon(Icons.import_export_rounded),
               onTap: () {}, // Leave empty for now
             ),
             Draweritem(

@@ -23,6 +23,7 @@ A simple and elegant Flutter to-do list personal diary app. Enjoy a sleek and el
   - **Add Diary Entries**: Write and save your daily diary entries.
   - **Edit Diary Entries**: Update your diary content whenever you want.
   - **Remove Diary Entries**: Delete entries that are no longer relevant.
+  - **Export Diary Entries**: Export each diary entry as a separate `.txt` file to your Documents folder (`/Documents/Mee`) with the title as the filename.
 - **Local Storage**: All your tasks and diary entries are saved locally using `shared_preferences`, ensuring your data persists even after closing the app.
 
 
@@ -78,6 +79,8 @@ Follow these steps to run the app locally:
 ### Managing Diary Entries
 - **Edit a Diary Entry**: Tap on a diary entry to modify its content.
 - **Remove a Diary Entry**: Long press on an entry to remove it.
+- **Export Diary Entries**: From the drawer or diary screen (depending on your app design), tap the **"Export all diaries"** button to save all entries as `.txt` files in your phone's storage (`/Documents/Mee`). Each file is named using the diary title.
+
 
 ### Accessing the About Page
 - Open the **drawer menu** and tap **"About"** to learn more about the app.
@@ -102,7 +105,7 @@ I am actively working on exciting new features to enhance your experience:
 
 ## License
 This project was made for the purpose of learning Flutter and is free to use by anyone.
-Note: We will be rebranding to "Mee" soon, replacing the current name "MyToDo".
+**Note:** We will be rebranding to "Mee" soon, replacing the current name "MyToDo".
 
 ---
 

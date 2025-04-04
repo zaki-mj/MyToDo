@@ -1,7 +1,7 @@
 name: my_to_do
 description: "A simple to do list Flutter project with local storage."
 publish_to: 'none'
-version: 1.2.0
+version: 1.3.0
 
 environment:
   sdk: ^3.6.1

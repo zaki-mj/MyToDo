@@ -74,12 +74,12 @@ class About extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        "1.2.0",
+                        "1.3.0",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.teal),
                       ),
                       Text(
-                        "10-03-2025",
+                        "04-04-2025",
                         style: TextStyle(color: Colors.white),
                       ),
                       addHorizontalSpace(screenWidth * .3),
