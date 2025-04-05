@@ -64,56 +64,54 @@ class DiaryPageState extends State<DiaryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Expanded(
-        child: myDiaries.isEmpty
-            ? const Center(child: Text("No diaries available"))
-            : Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 1.2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                  ),
-                  itemCount: myDiaries.length,
-                  itemBuilder: (context, index) {
-                    return DiaryTile(
-                      diary: myDiaries[index],
-                      onTap: () => _navigateToAddDiary(index),
-                      onHold: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text(
-                                  'Are you sure you want to delete this diary?'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    _deleteDiary(index);
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('Yes',
-                                      style: TextStyle(color: Colors.teal)),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('No',
-                                      style: TextStyle(color: Colors.teal)),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                    );
-                  },
+      body: myDiaries.isEmpty
+          ? const Center(child: Text("No diaries available"))
+          : Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 1.2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
                 ),
+                itemCount: myDiaries.length,
+                itemBuilder: (context, index) {
+                  return DiaryTile(
+                    diary: myDiaries[index],
+                    onTap: () => _navigateToAddDiary(index),
+                    onHold: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text(
+                                'Are you sure you want to delete this diary?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  _deleteDiary(index);
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('Yes',
+                                    style: TextStyle(color: Colors.teal)),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('No',
+                                    style: TextStyle(color: Colors.teal)),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
               ),
-      ),
+            ),
     );
   }
 }

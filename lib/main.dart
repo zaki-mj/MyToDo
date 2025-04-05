@@ -8,7 +8,6 @@ void main() async {
   
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Set system UI mode at the start
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.bottom]);
 
