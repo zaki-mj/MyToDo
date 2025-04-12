@@ -1,6 +1,6 @@
 # MyToDo
 
-A simple and elegant Flutter to-do list personal diary app. Enjoy a sleek and elegant Flutter application that not only manages your daily tasks but also helps you keep a journal of your thoughts. Stay organized with local storage , with all data persisted locally using `shared_preferences`. and get ready for even more features coming soon.
+A simple and elegant Flutter to-do list and personal diary app. Stay organized with local storage , with all data persisted locally using `shared_preferences` and even more features coming soon.
 
 ## Table of Contents
 - [Features](#features)
